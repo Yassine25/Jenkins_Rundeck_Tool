@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+ xmlns:mvc="http://www.springframework.org/schema/mvc"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:p="http://www.springframework.org/schema/p"
+ xmlns:task="http://www.springframework.org/schema/task"
+ 
+ 
+ xmlns:context="http://www.springframework.org/schema/context"  
+ xsi:schemaLocation="http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+  http://www.springframework.org/schema/context  
+  http://www.springframework.org/schema/context/spring-context-3.0.xsd
+  http://www.springframework.org/schema/mvc 
+  http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+  http://www.springframework.org/schema/task
+  http://www.springframework.org/schema/task/spring-task-3.0.xsd">  
+ 
+  
+ <!-- telling container to take care of annotations stuff -->  
+ <context:annotation-config />  
+  
+ <!-- declaring base package -->  
+ <context:component-scan base-package="com.project.apps*" />  
+  
+ <!-- adding view resolver to show jsp's on browser -->  
+ <bean id="viewResolver"  
+  class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
+  <property name="prefix" value="/WEB-INF/views/" />  
+  <property name="suffix" value=".jsp" />  
+ </bean>  
+ 
+ <mvc:resources mapping="/resources/**" location="/resources/" />
+ <mvc:annotation-driven />
+ 
+ 
+ 
+
+ 
+  
+ <!-- declare beans -->  
+ <bean id="customerDao" class="com.project.apps.dao.CustomerDaoImpl" />  
+ <bean id="DeploymentDao" class="com.project.apps.dao.DeploymentDaoImpl" />  
+ <bean id="DeploymentjobDao" class="com.project.apps.dao.DeploymentJobDaoImpl" />  
+ <bean id="DeploymentProject" class="com.project.apps.dao.DeploymentProjectDaoImpl" />  
+ <bean id="jobDao" class="com.project.apps.dao.JobDaoImpl" />  
+ <bean id="ReleasesDao" class="com.project.apps.dao.ReleaseDaoImpl" />  
+ <bean id="UserDao" class ="com.project.apps.dao.UserDaoImpl" />
+ 
+  
+ <!-- declare datasource bean -->  
+ <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
+  <property name="driverClassName" value="com.mysql.jdbc.Driver" />  
+  <property name="url" value="jdbc:mysql://localhost:3306/dashboard" />  
+  <property name="username" value="root" />  
+  <property name="password" value="" />  
+ </bean>  
+ 
+ <task:annotation-driven />
+    <bean id="homeController" class="com.project.apps.controller.HomeController">
+    </bean>
+    
+    
+
+ 
+ 
+</beans>  

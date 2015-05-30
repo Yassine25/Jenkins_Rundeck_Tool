@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+
+
+<beans:beans
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns="http://www.springframework.org/schema/security">
+
+	<!-- enable use-expressions -->
+
+
+
+	
+	<http use-expressions="true" auto-config="true" disable-url-rewriting="true">
+
+		<intercept-url access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" pattern="/home*"/>
+		<intercept-url access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" pattern="/jobs*"/>
+		<intercept-url access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" pattern="/AddjobsToCustomer*"/>
+		<intercept-url access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" pattern="/customers*"/>
+		<intercept-url access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" pattern="/ShowCustomerStatistics"/>
+		<intercept-url access="hasRole('ROLE_ADMIN')" pattern="/users"/>
+		
+
+		<!-- access denied page -->
+
+
+		<access-denied-handler error-page="/403" />
+
+		<form-login password-parameter="password"
+			username-parameter="username" authentication-failure-url="/?error"
+			default-target-url="/home" login-page="/" />
+
+		<logout logout-success-url="/?logout" />
+
+		<!-- enable csrf protection -->
+
+
+		<csrf />
+
+	</http>
+
+	<!-- Select users and user_roles from database -->
+
+
+
+	
+	<authentication-manager>
+
+
+		
+		<authentication-provider>
+	 <password-encoder hash="bcrypt" />
+
+			<jdbc-user-service
+				authorities-by-username-query="select username, role from user_roles where username =? "
+				users-by-username-query="select username,password, enabled from users where username=?"
+				data-source-ref="dataSource" />
+
+		</authentication-provider>
+
+	</authentication-manager>
+
+	
+</beans:beans>

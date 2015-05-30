@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+
+
+<web-app
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/j2ee"
+	version="2.4" id="WebApp_ID">
+
+	<display-name>Spring Security Application</display-name>
+
+
+
+	<servlet>
+
+		<servlet-name>spring</servlet-name>
+
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+		<load-on-startup>1</load-on-startup>
+
+	</servlet>
+
+
+
+	<servlet-mapping>
+
+		<servlet-name>spring</servlet-name>
+
+		<url-pattern>/</url-pattern>
+
+	</servlet-mapping>
+
+
+
+	<listener>
+
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+
+	</listener>
+
+
+
+	<context-param>
+
+		<param-name>contextConfigLocation</param-name>
+
+		<param-value> /WEB-INF/spring-security.xml, /WEB-INF/spring-database.xml </param-value>
+
+	</context-param>
+
+	<!-- Spring Security -->
+
+
+
+
+	<filter>
+
+		<filter-name>springSecurityFilterChain</filter-name>
+
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+
+	</filter>
+
+	<!-- session -->
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+
+	<!-- cross site scripting -->
+	<context-param>
+		<param-name>defaultHtmlEscape</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+     
+
+
+	<filter-mapping>
+
+		<filter-name>springSecurityFilterChain</filter-name>
+
+		<url-pattern>/*</url-pattern>
+
+	</filter-mapping>
+
+</web-app>
