@@ -247,12 +247,7 @@ public class HomeController {
 		Calendar end = Calendar.getInstance();
 		System.out.println("end import" + end.getTime());
 	}
-	
-	/*
-	  <sec:authorize access="hasRole('ROLE_ADMIN')">
-					<li><a href="<c:url value="/users" />">USER</a></li>
-					</sec:authorize>
-	 */
+
 
 	public void importReleaseData() {
 		HandleImportReleaseJobs();
